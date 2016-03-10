@@ -1,0 +1,116 @@
+<div id="wrapper">
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">{{event.name}}</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Chart
+          </div>
+
+          <div class="panel-body">
+            <div class="line-chart"
+                  line-chart
+                  line-post-units="'%'"
+                  line-data='chartData'
+                  line-xkey='y'
+                  line-ykeys='["a", "b"]'
+                  line-labels='["Trump", "Clinton"]'
+                  line-colors='["red", "blue"]'>
+                </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-lg-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Trading Panel</h4>
+          </div>
+
+          <div class="panel-body">
+            <form name="tradePanel">
+            <select name="opt" ng-model="optionChoice">
+            <option ng-repeat="option in options" value="{{option}}">{{option}}</option>
+          </select><br><br>
+            <label for="amt">Amount: </label>
+            <input name="amt" style="width:50px;" ng-model="amtChoice" />
+            <label>Limit: </label>
+            <input name="limit" style="width:50px;" ng-model="limitChoice"/><br><br>
+            <button class="btn-success" id="buy" style="float:center" ng-click="submitOrder()">Buy</button>
+            <button class="btn-danger" id="sell" style="float:center" ng-click="submitOrder()">Sell</button>
+          </form>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Open Trades
+          </div>
+
+          <div class="panel-body">
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Trade Stats
+          </div>
+
+          <div class="panel-body">
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            User Stats
+          </div>
+
+          <div class="panel-body">
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Event Description
+          </div>
+
+          <div class="panel-body">
+            <p>{{event.desc}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
