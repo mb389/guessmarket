@@ -28,14 +28,15 @@
           </div>
 
           <div class="panel-body">
-            <form name="tradePanel">
+            <form name="tradePanel" novalidate>
               <label for="opt">Selection:</label>
-            <select name="opt" ng-model="order.optionChoice">
-            <option ng-repeat="option in guessOptions" value="{{option}}">{{option}}</option>
+            <select name="opt" ng-model="order.optionChoice" ng-options="option for option in guessOptions" required>
           </select>
-            <label for="amt">Amount: </label>
-            <input name="amt" style="width:50px;" ng-model="order.amtChoice" />
+            <label for="amt" >Amount: </label>
+            <input name="amt" style="width:50px;" ng-model="order.amtChoice" min="0" placeholder="100" required />
             <button class="btn-success" id="buy" style="float:center" ng-click="submitGuess(order)">Guess!</button>
+            <br><span ng-show="tradePanel.amt.$touched && tradePanel.amt.$invalid">The amount is required.</span>
+            <br><span ng-show="tradePanel.opt.$invalid">A choice is required.</span>
           </form>
           </div>
 
@@ -50,7 +51,6 @@
           </div>
 
           <div class="panel-body">
-            {{openGuesses}}
             <table class="table col-md-3">
               <thead>
                 <tr>

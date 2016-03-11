@@ -1,8 +1,9 @@
+
 app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interval) {
 
   $scope.event=theEvent;
   $rootScope.score=0;
-  $rootScope.guesses=100;
+  $rootScope.guesses=1000;
   $scope.order = {};
   $scope.order.amtChoice=100;
   $scope.openGuesses = [];
@@ -29,11 +30,11 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
                   xAxis: {
                       axisLabel: 'Date',
                       tickFormat: function(d) {
-                        return d3.time.format('%c')(new Date(d));
+                        return d3.time.format('%m/%d %H:%M%p')(new Date(d));
                       }
                   },
                   yAxis: {
-                      axisLabel: 'Probability (%)',
+                      axisLabel: 'Vote Value',
                       tickFormat: function(d){
                           return d3.format('.02f')(d);
                       },
@@ -65,62 +66,59 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
               }
           };
 
-          var seedValues = [{x: Date.now()-(60*60*24*2),y: 20}];
-
           $scope.data = [
               {
-                  values: seedValues,
+                  values: [{x: Date.now()-(60*60*24),y: 0}],
                   key: 'Trump',
                   color: '#ff7f0e'
               },
               {
-                  values: seedValues,
+                  values: [{x: Date.now()-(60*60*24),y: 0}],
                   key: 'Cruz',
                   color: '#2ca02c'
               },
               {
-                  values: seedValues,
+                  values: [{x: Date.now()-(60*60*24),y: 0}],
                   key: 'Rubio',
                   color: 'blue'
               },
               {
-                  values: seedValues,
+                  values: [{x: Date.now()-(60*60*24),y: 0}],
                   key: 'Clinton',
                   color: 'red'
               },
               {
-                  values: seedValues,
+                  values: [{x: Date.now()-(60*60*24),y: 0}],
                   key: 'Sanders',
                   color: 'purple'
               }
           ];
 
   $scope.guessOptions = $scope.data.map(el => el.key);
-  var totalGuessVal=100;
+  var totalGuessVal=0;
 
   $scope.submitGuess = function(order) {
-    $scope.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
+    if (order.optionChoice && order.amtChoice > 0)
+      $scope.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
     $rootScope.guesses-=order.amtChoice;
     totalGuessVal+=order.amtChoice;
 
     $scope.data.forEach(el => {
-      console.log("prev y:", el.values[el.values.length-1].y, "total:", totalGuessVal)
-      if (el.key == order.optionChoice) {
-        console.log(el.key)
+      if (el.key===order.optionChoice) {
         el.values.push({
           x: Date.now(),
-          y: (el.values[el.values.length-1].y+order.amtChoice)/totalGuessVal*100
-        });
-      } else {
-        console.log(el.key)
-        el.values.push({
-          x: Date.now(),
-          y: (el.values[el.values.length-1].y)/totalGuessVal*100
+          y: (el.values[el.values.length-1].y+Number(order.amtChoice))*100
         })
-      }
-  });
+      } else {
+        el.values.push({
+        x:Date.now(),
+        y:(el.values[el.values.length-1].y)*100
+      })
+    }
+    console.log(el.values[el.values.length-1].y,totalGuessVal)
+    })
 
-    console.log($scope.data[0].values)
+    console.log("scope data",$scope.data)
     order={};
   }
 
