@@ -4,8 +4,10 @@ app.directive('sidebar', function ($rootScope, AuthService, AUTH_EVENTS, $state)
         restrict: 'E',
         templateUrl: 'js/common/directives/sidebar/sidebar.html',
         link: function (scope) {
+              scope.score=$rootScope.score;
+              scope.guesses=$rootScope.guesses;
           }
         }
-      
+
 
   });
