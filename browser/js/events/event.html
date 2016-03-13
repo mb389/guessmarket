@@ -9,34 +9,36 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Historical Values</h4>
-          </div>
-
           <div class="panel-body">
-            <!-- <div d3-chart chart-data='myData'></div> -->
               <nvd3 options="options" data="data"></nvd3>
           </div>
-
         </div>
-
+      </div>
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Description</h4>
+          </div>
+          <div class="panel-body">
+          {{event.desc}}
+          </div>
+        </div>
       </div>
       <div class="col-lg-6">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Guess Deployer</h4>
+            <h4>Prediction Deployer</h4>
           </div>
 
           <div class="panel-body">
             <form name="tradePanel" novalidate>
               <label for="opt">Selection:</label>
-            <select name="opt" ng-model="order.optionChoice" ng-options="option for option in guessOptions" required>
-          </select>
-            <label for="amt" >Amount: </label>
-            <input name="amt" style="width:50px;" ng-model="order.amtChoice" min="0" placeholder="100" required />
-            <button class="btn-success" id="buy" style="float:center" ng-click="submitGuess(order)">Guess!</button>
+            <select name="opt" ng-init="order.optionChoice=guessOptions[0]" ng-model="order.optionChoice" ng-options="option for option in guessOptions" required>{{option}}</select>
+            <label for="amt" >&nbsp;&nbsp;Amount: </label>
+            <input name="amt" style="width:50px;" ng-model="order.amtChoice" min="0" placeholder="100" required />&nbsp;&nbsp;
+            <button class="btn-success" id="buy" style="float:center" ng-click="submitGuess(order)">Submit!</button>
             <br><span ng-show="tradePanel.amt.$touched && tradePanel.amt.$invalid">The amount is required.</span>
-            <br><span ng-show="tradePanel.opt.$invalid">A choice is required.</span>
+            <br><span ng-show="tradePanel.opt.$touched && tradePanel.opt.$invalid">A choice is required.</span>
           </form>
           </div>
 
@@ -45,16 +47,16 @@
       </div>
 
       <div class="col-lg-6">
-        <div class="panel panel-default">
+        <div class="panel panel-default" >
           <div class="panel-heading">
-            <h4>Open Guesses</h4>
+            <h4>Predictions</h4>
           </div>
 
-          <div class="panel-body">
+          <div class="panel-body" style='overflow: auto; height:300px;'>
             <table class="table col-md-3">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th></th>
                   <th>User</th>
                   <th>Choice</th>
                   <th>Amount</th>
@@ -62,8 +64,8 @@
               </thead>
               <tbody>
                 <tr ng-repeat="guess in openGuesses">
-                <th></th>
-                <td>User1</td>
+                  <th></th>
+                <td>{{user.email}}</td>
                 <td>{{guess.option}}</td>
                 <td>{{guess.amt}}</td>
                 </tr>
@@ -79,7 +81,7 @@
       <div class="col-lg-6">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Guess Stats</h4>
+            <h4>Prediction Stats</h4>
 
           </div>
 
@@ -105,19 +107,7 @@
 
       </div>
 
-      <div class="col-lg-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Event Description</h4>
-          </div>
 
-          <div class="panel-body">
-
-          </div>
-
-        </div>
-
-      </div>
 
     </div>
 

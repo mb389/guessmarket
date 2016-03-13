@@ -24,6 +24,9 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
+    },
+    score: {
+      type: Number
     }
 });
 

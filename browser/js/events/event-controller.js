@@ -1,16 +1,25 @@
 
-app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interval) {
+app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory) {
 
   $scope.event=theEvent;
-  $rootScope.score=0;
+  $scope.user=loggedInUser;
   $rootScope.guesses=1000;
   $scope.order = {};
   $scope.order.amtChoice=100;
   $scope.openGuesses = [];
+  var guessObj=$scope.event.choices;
+
+  console.log($scope.event)
+
+  UserFactory.getUserById($scope.user._id)
+  .then(user => {
+    $rootScope.score=user.score;
+  });
 
     $scope.options = {
               chart: {
                   type: 'lineChart',
+                  interpolate: 'basis',
                   height: 450,
                   margin : {
                       top: 20,
@@ -28,7 +37,7 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
                       tooltipHide: function(e){ console.log("tooltipHide"); }
                   },
                   xAxis: {
-                      axisLabel: 'Date',
+                      axisLabel: 'Time',
                       tickFormat: function(d) {
                         return d3.time.format('%m/%d %H:%M%p')(new Date(d));
                       }
@@ -46,7 +55,7 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
               },
               title: {
                   enable: true,
-                  text: 'Winner of 2016 US Presidential Election'
+                  text: 'Projected Winner'
               },
               subtitle: {
                   enable: false,
@@ -94,6 +103,13 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
               }
           ];
 
+//persisting chart data
+if (guessObj) {
+  for (var x=0; x<$scope.data.length; x++) {
+    $scope.data[x].values=guessObj[$scope.data[x].key];
+  }
+}
+
   $scope.guessOptions = $scope.data.map(el => el.key);
   var totalGuessVal=0;
 
@@ -101,27 +117,33 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
     if (order.optionChoice && order.amtChoice > 0)
       $scope.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
     $rootScope.guesses-=order.amtChoice;
-    totalGuessVal+=order.amtChoice;
+    totalGuessVal+=Number(order.amtChoice);
 
     $scope.data.forEach(el => {
       if (el.key===order.optionChoice) {
         el.values.push({
           x: Date.now(),
-          y: (el.values[el.values.length-1].y+Number(order.amtChoice))*100
+          y: (el.values[el.values.length-1].y+Number(order.amtChoice))
         })
+        guessObj[el.key].push(el.values[el.values.length-1]);
       } else {
         el.values.push({
         x:Date.now(),
-        y:(el.values[el.values.length-1].y)*100
+        y:(el.values[el.values.length-1].y)
       })
+      guessObj[el.key].push(el.values[el.values.length-1]);
     }
-    console.log(el.values[el.values.length-1].y,totalGuessVal)
-    })
+  });
 
+    EventFactory.submitGuess($scope.event._id,guessObj);
+    console.log("guessObj for put",guessObj)
     console.log("scope data",$scope.data)
+    $rootScope.score+=10;
     order={};
   }
 
-
+  $rootScope.$watch('score', () => {
+    UserFactory.editUser($scope.user._id, { score: $rootScope.score });
+  })
 
 })
