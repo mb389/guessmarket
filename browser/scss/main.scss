@@ -12,6 +12,13 @@ body {
     width: 100%;
 }
 
+button {
+  background-color:#3f7ebc;
+  color:white;
+  padding: .3em .5em .3em .5em;
+  border:none;
+}
+
 #page-wrapper {
     padding: 0 15px;
     min-height: 568px;
@@ -25,6 +32,14 @@ body {
         padding: 0 30px;
         border-left: 1px solid #e7e7e7;
     }
+}
+
+#choicesDisplay {margin-top:1em;}
+.form-group {width:70%;clear:both;}
+.form-group input {
+  float:right;
+  width:60%;
+  padding:.3em;
 }
 
 .navbar-top-links {

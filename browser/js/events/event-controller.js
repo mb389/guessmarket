@@ -1,9 +1,9 @@
 
-app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory) {
+app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory, score, guesses,chartData) {
 
   $scope.event=theEvent;
+  $scope.data=chartData;
   $scope.user=loggedInUser;
-  $rootScope.guesses=1000;
   $scope.order = {};
   $scope.order.amtChoice=100;
   $scope.openGuesses = [];
@@ -11,10 +11,25 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
 
   console.log($scope.event)
 
-  UserFactory.getUserById($scope.user._id)
-  .then(user => {
-    $rootScope.score=user.score;
-  });
+  $scope.clearVotes = function() {
+    $rootScope.guesses=1000;
+  }
+
+  $scope.noMoreGuesses = function() {
+    if ($rootScope.guesses <= 0 || guesses <= 0)
+    return true;
+  }
+
+  $scope.userCheck = function() {
+    if ($scope.user.email === "mb@mb.com") return true;
+    else return false;
+  }
+
+  if (!guesses) $rootScope.guesses=1000;
+  else $rootScope.guesses=guesses;
+
+  if (!score) $rootScope.score=0;
+  else $rootScope.score=score;
 
     $scope.options = {
               chart: {
@@ -75,33 +90,11 @@ app.controller('EventCtrl',function($scope,$state, theEvent, $rootScope, $interv
               }
           };
 
-          $scope.data = [
-              {
-                  values: [{x: Date.now()-(60*60*24),y: 0}],
-                  key: 'Trump',
-                  color: '#ff7f0e'
-              },
-              {
-                  values: [{x: Date.now()-(60*60*24),y: 0}],
-                  key: 'Cruz',
-                  color: '#2ca02c'
-              },
-              {
-                  values: [{x: Date.now()-(60*60*24),y: 0}],
-                  key: 'Rubio',
-                  color: 'blue'
-              },
-              {
-                  values: [{x: Date.now()-(60*60*24),y: 0}],
-                  key: 'Clinton',
-                  color: 'red'
-              },
-              {
-                  values: [{x: Date.now()-(60*60*24),y: 0}],
-                  key: 'Sanders',
-                  color: 'purple'
-              }
-          ];
+          $scope.guessOptions=[];
+          for (var key in theEvent.choices) {
+            $scope.guessOptions.push(key)
+          }
+
 
 //persisting chart data
 if (guessObj) {
@@ -110,14 +103,15 @@ if (guessObj) {
   }
 }
 
-  $scope.guessOptions = $scope.data.map(el => el.key);
-  var totalGuessVal=0;
-
   $scope.submitGuess = function(order) {
+
     if (order.optionChoice && order.amtChoice > 0)
       $scope.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
     $rootScope.guesses-=order.amtChoice;
+    var totalGuessVal=0;
     totalGuessVal+=Number(order.amtChoice);
+
+
 
     $scope.data.forEach(el => {
       if (el.key===order.optionChoice) {
@@ -142,8 +136,19 @@ if (guessObj) {
     order={};
   }
 
+
   $rootScope.$watch('score', () => {
     UserFactory.editUser($scope.user._id, { score: $rootScope.score });
   })
+  //TODO: vote points tracker
+  // $rootScope.$watch('guesses', () => {
+  //   var newGuessArr=$scope.user.guesses;
+  //   newGuessArr.forEach(function(el) {
+  //     if (el.event===$scope.event.path) el.number=$rootScope.guesses;
+  //     else newGuessArr.push({ event: $scope.event.path, number: $rootScope.guesses })
+  // });
+  //   UserFactory.editUser($scope.user._id, { guesses: newGuessArr });
+  //   $scope.noMoreGuesses();
+  // })
 
 })

@@ -27,6 +27,9 @@ var schema = new mongoose.Schema({
     },
     score: {
       type: Number
+    },
+    guesses: {
+      type: Array
     }
 });
 

@@ -1,3 +1,4 @@
+
 <section id="home">
   <div id="page-wrapper">
     <div class="row">
@@ -6,127 +7,42 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-md-8" ng-show="user">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-            <div class="pull-right">
-              <div class="btn-group">
-                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                  Actions
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right" role="menu">
-                  <li><a href="#">Action</a>
-                  </li>
-                  <li><a href="#">Another action</a>
-                  </li>
-                  <li><a href="#">Something else here</a>
-                  </li>
-                  <li class="divider"></li>
-                  <li><a href="#">Separated link</a>
-                  </li>
-                </ul>
+            <i class="fa fa-bar-chart-o fa-fw"></i> Market Creation Console
+            <span class="pull-right" style="vertical-align:middle">
+            <button ng-click="reset()" value="Reset">Reset</button>
+            <button type="submit" ng-click="save(newEvent,choices)" value="Save">Save</button>
+          </span
+            </div>
+
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body" >
+              <form novalidate class="form-group" name="createMarket">
+                  <label>Event Name</label>
+                   <input type="text" ng-model="newEvent.name" /><br />
+                   <br>
+                   <label>Event Description</label>
+                    <input type="text" ng-model="newEvent.desc" size="400" /><br />
+                    <br>
+                   <div ng-repeat="choice in choices">
+                     <label for="choice" ng-show="showChoiceLabel(choice)">Choices</label>
+                     <button ng-show="$last" ng-click="addNewChoice()">Add another choice</button>
+                     <input type="text" ng-model="choice.name" name="" placeholder="Enter an option">
+                  </div>
+                  </form>
               </div>
+
             </div>
+
           </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body">
-            1234
-          </div>
+          <div class="row">
+          <div class="col-md-12" ng-hide="user">Please Sign Up and/or Log In</div>
+        </div>
           <!-- /.panel-body -->
         </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
-          </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body">
-            <ul class="timeline">
-              <li>
-                <div class="timeline-badge info"><i class="fa fa-save"></i>
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi quam ipsum alias at est molestiae excepturi delectus nesciunt, quibusdam debitis amet, beatae consequuntur impedit nulla qui! Laborum, atque.</p>
-                    <hr>
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-gear"></i> <span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a>
-                        </li>
-                        <li><a href="#">Another action</a>
-                        </li>
-                        <li><a href="#">Something else here</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi fuga odio quibusdam. Iure expedita, incidunt unde quis nam! Quod, quisquam. Officia quam qui adipisci quas consequuntur nostrum sequi. Consequuntur, commodi.</p>
-                  </div>
-                </div>
-              </li>
-              <li class="timeline-inverted">
-                <div class="timeline-badge success"><i class="fa fa-graduation-cap"></i>
-                </div>
-                <div class="timeline-panel">
-                  <div class="timeline-heading">
-                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                  </div>
-                  <div class="timeline-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt obcaecati, quaerat tempore officia voluptas debitis consectetur culpa amet, accusamus dolorum fugiat, animi dicta aperiam, enim incidunt quisquam maxime neque eaque.</p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-      </div>
-      <!-- /.col-lg-8 -->
-      <div class="col-lg-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <i class="fa fa-bell fa-fw"></i> Notifications Panel
-          </div>
-          <!-- /.panel-heading -->
-          <div class="panel-body">
-            <div class="list-group">
-              <a href="#" class="list-group-item">
-                <i class="fa fa-comment fa-fw"></i> New Comment
-                <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-              </a>
-            </div>
-            <!-- /.list-group -->
-            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
-          </div>
-          <!-- /.panel-body -->
-        </div>
-        <!-- /.panel .chat-panel -->
-      </div>
-      <!-- /.col-lg-4 -->
     </div>
-    <!-- /.row -->
-  </div>
-  <!-- /#page-wrapper -->
-
-
 </section>
+  <!-- /#page-wrapper -->
