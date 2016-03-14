@@ -31,7 +31,7 @@
             <h4>Prediction Deployer</h4>
           </div>
 
-          <div class="panel-body">
+          <div class="panel-body" style='height:200px;'>
             <form name="tradePanel" novalidate>
               <label for="opt">Selection:</label>
             <select name="opt" ng-init="order.optionChoice=guessOptions[0]" ng-model="order.optionChoice" ng-options="option for option in guessOptions" required>{{option}}</select>
@@ -55,7 +55,7 @@
             <h4>Latest Predictions</h4>
           </div>
 
-          <div class="panel-body" style='overflow: auto; height:300px;'>
+          <div class="panel-body" style='overflow: auto; height:200px;'>
             <table class="table col-md-3">
               <thead>
                 <tr>
@@ -81,7 +81,7 @@
 
       </div>
 
-      <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Prediction Stats</h4>
@@ -108,7 +108,7 @@
 
         </div>
 
-      </div>
+      </div> -->
 
 
 

@@ -6,6 +6,7 @@ app.config(function ($stateProvider) {
         controller: 'EventCtrl',
         resolve: {
           theEvent: function(EventFactory,$stateParams) {
+            console.log("here!")
             return EventFactory.getEventByPath($stateParams.path);
           },
           chartData: function(EventFactory,$stateParams) {

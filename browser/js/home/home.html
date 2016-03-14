@@ -2,7 +2,7 @@
 <section id="home">
   <div id="page-wrapper">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12" ng-show="user">
         <h1 class="page-header">Dashboard</h1>
       </div>
     </div>
@@ -10,7 +10,7 @@
       <div class="col-md-8" ng-show="user">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <i class="fa fa-bar-chart-o fa-fw"></i> Market Creation Console
+            <i class="fa fa-bar-chart-o fa-fw"></i> Poll Creation Console
             <span class="pull-right" style="vertical-align:middle">
             <button ng-click="reset()" value="Reset">Reset</button>
             <button type="submit" ng-click="save(newEvent,choices)" value="Save">Save</button>
@@ -38,8 +38,9 @@
             </div>
 
           </div>
-          <div class="row">
-          <div class="col-md-12" ng-hide="user">Please Sign Up and/or Login</div>
+          <div class="row" ng-hide="user">
+          <div class="col-md-12" ><br>Please Sign Up and/or Login<br><br></div>
+          <img src="https://c1.staticflickr.com/5/4011/4361587415_d1e8375bf5.jpg" ></img>
         </div>
           <!-- /.panel-body -->
         </div>

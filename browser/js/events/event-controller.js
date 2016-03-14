@@ -1,13 +1,16 @@
 
-app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory, score, chartData) {
+app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory, chartData) {
+
   $scope.event=theEvent;
   $scope.data=chartData;
   $scope.user=loggedInUser;
-  $scope.guesses=$scope.user.guesses[theEvent.path];
+  $scope.guesses=1000;
   $scope.order = {};
   $scope.order.amtChoice=100;
   $scope.openGuesses = [];
   var guessObj=$scope.event.choices;
+
+  console.log($scope.event)
 
   console.log("guesses:",$scope.guesses);
   if (!$scope.guesses) {
