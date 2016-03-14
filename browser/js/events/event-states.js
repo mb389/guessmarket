@@ -39,21 +39,8 @@ app.config(function ($stateProvider) {
               return UserFactory.getUserById(user._id)
             })
             .then(user => user.score)
-          },
-          guesses: function(UserFactory,AuthService, $stateParams) {
-              return AuthService.getLoggedInUser()
-              .then(function(user) {
-                return UserFactory.getUserById(user._id)
-              })
-              .then(function(foundUser){
-                var counter=0;
-                for (var x=0; x<foundUser.guesses.length; x++) {
-                  counter++;
-                  if (foundUser.guesses[x].event === $stateParams.path)
-                    return foundUser.guesses[x].number;
-                }
-              })
-            }
           }
-        });
+      }
+
+      })
 });

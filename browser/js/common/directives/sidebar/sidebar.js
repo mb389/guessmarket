@@ -1,16 +1,15 @@
-app.directive('sidebar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('sidebar', function ($rootScope, AuthService, AUTH_EVENTS, $state,EventFactory,UserFactory) {
 
     return {
         restrict: 'E',
         templateUrl: 'js/common/directives/sidebar/sidebar.html',
         link: function (scope) {
-              scope.score=$rootScope.score;
-              scope.guesses=$rootScope.guesses;
-              scope.events=$rootScope.events;
-              $rootScope.$watch('events', function() {
-                scope.events=$rootScope.events;
+              EventFactory.getEvents()
+              .then(events => scope.events=events)
+              AuthService.getLoggedInUser()
+              .then(user => {
+                scope.user=user;
               })
-              scope.user=$rootScope.user;
           }
         }
   });

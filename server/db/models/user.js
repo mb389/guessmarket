@@ -29,7 +29,7 @@ var schema = new mongoose.Schema({
       type: Number
     },
     guesses: {
-      type: Array
+      type: Object
     }
 });
 

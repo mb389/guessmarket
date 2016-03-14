@@ -52,11 +52,11 @@ var seedEvents = function () {
       desc: "You have 1000 points to allocate amongst the choices. Choose those that you think have the highest chance of winning! Your score will increase as the win expectation of your choices rises.",
       path: "2016pres",
       choices: {
-        Trump: [{x: 1, y:0}],
-        Clinton: [{x: 1, y:0}],
-        Cruz: [{x: 1, y:0}],
-        Sanders: [{x: 1, y:0}],
-        Rubio: [{x: 1, y:0}]
+        Trump: [{x: Date.now(), y:0}],
+        Clinton: [{x: Date.now(), y:0}],
+        Cruz: [{x: Date.now(), y:0}],
+        Sanders: [{x: Date.now(), y:0}],
+        Rubio: [{x: Date.now(), y:0}]
       }
     }
   ];

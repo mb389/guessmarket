@@ -42,6 +42,7 @@
             <br><span ng-show="tradePanel.opt.$touched && tradePanel.opt.$invalid">A choice is required.</span>
           </form>
           <button ng-show="userCheck()" ng-click="clearVotes()">Reset Votes</button>
+          <h5>Vote Points Remaining: {{guesses}}</h5>
           </div>
 
         </div>
@@ -51,7 +52,7 @@
       <div class="col-lg-6">
         <div class="panel panel-default" >
           <div class="panel-heading">
-            <h4>Predictions</h4>
+            <h4>Latest Predictions</h4>
           </div>
 
           <div class="panel-body" style='overflow: auto; height:300px;'>

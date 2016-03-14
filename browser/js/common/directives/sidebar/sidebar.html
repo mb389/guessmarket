@@ -1,11 +1,10 @@
 
 <div class="navbar-default sidebar style='position:fixed'" role="navigation">
-  <div class="sidebar-nav navbar">
+  <div class="sidebar-nav navbar" ng-hide="!user">
     <ul class="nav" id="side-menu">
       <li class="sidebar-search">
         <div class="input-group custom-search-form">
-          <h3>Score: {{score}}</h3>
-          <h5>Vote Points Remaining: {{guesses}}</h5>
+          <h3>Score: {{user.score}}</h3>
         </div>
         <!-- /input-group -->
       </li>
@@ -16,7 +15,7 @@
         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Markets<span class="fa arrow"></span></a>
         <ul class="nav nav-second-level" ng-repeat="event in events">
           <li>
-            <a ui-sref="event({ path: '{{event.path}}' })">{{event.name}}</a>
+            <a ui-sref="event({ path: '{{event.path}}' })" ui-sref-options="{reload: true}">{{event.name}}</a>
           </li>
         </ul>
         <!-- /.nav-second-level -->

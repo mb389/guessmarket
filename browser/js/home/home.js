@@ -29,7 +29,7 @@ app.config(function ($stateProvider) {
           $scope.save = function(event,choices) {
             var newChoices = {};
             choices.forEach(function(el) {
-              newChoices[el.name]=[{x:0,y:0}];
+              newChoices[el.name]=[{x:Date.now(),y:0}];
             })
             var pathName = event.name.split(' ').join('').toLowerCase();
             EventFactory.createEvent({
@@ -43,10 +43,6 @@ app.config(function ($stateProvider) {
             })
 
           }
-
-
-
-
      },
      resolve: {
        allEvents: function(EventFactory) {

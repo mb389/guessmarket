@@ -1,22 +1,25 @@
 
-app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory, score, guesses,chartData) {
-
+app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory, score, chartData) {
   $scope.event=theEvent;
   $scope.data=chartData;
   $scope.user=loggedInUser;
+  $scope.guesses=$scope.user.guesses[theEvent.path];
   $scope.order = {};
   $scope.order.amtChoice=100;
   $scope.openGuesses = [];
   var guessObj=$scope.event.choices;
 
-  console.log($scope.event)
+  console.log("guesses:",$scope.guesses);
+  if (!$scope.guesses) {
+    updateGuessCount(1000);
+  }
 
   $scope.clearVotes = function() {
-    $rootScope.guesses=1000;
+    updateGuessCount(1000);
   }
 
   $scope.noMoreGuesses = function() {
-    if ($rootScope.guesses <= 0 || guesses <= 0)
+    if ($scope.guesses <= 0)
     return true;
   }
 
@@ -25,11 +28,7 @@ app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $inter
     else return false;
   }
 
-  if (!guesses) $rootScope.guesses=1000;
-  else $rootScope.guesses=guesses;
-
-  if (!score) $rootScope.score=0;
-  else $rootScope.score=score;
+  if (!$scope.user.score) $scope.user.score=0;
 
     $scope.options = {
               chart: {
@@ -90,28 +89,29 @@ app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $inter
               }
           };
 
-          $scope.guessOptions=[];
-          for (var key in theEvent.choices) {
-            $scope.guessOptions.push(key)
-          }
+    $scope.guessOptions=[];
+    for (var key in theEvent.choices) {
+      $scope.guessOptions.push(key)
+    }
 
-
-//persisting chart data
-if (guessObj) {
-  for (var x=0; x<$scope.data.length; x++) {
-    $scope.data[x].values=guessObj[$scope.data[x].key];
-  }
-}
+    //persisting chart data
+    if (guessObj) {
+      for (var x=0; x<$scope.data.length; x++) {
+        $scope.data[x].values=guessObj[$scope.data[x].key];
+      }
+    }
 
   $scope.submitGuess = function(order) {
 
     if (order.optionChoice && order.amtChoice > 0)
       $scope.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
-    $rootScope.guesses-=order.amtChoice;
-    var totalGuessVal=0;
-    totalGuessVal+=Number(order.amtChoice);
+    $scope.guesses-=order.amtChoice;
+    updateGuessCount($scope.guesses);
+    var totalGuessVal=Number(order.amtChoice);
 
-
+    chartData.forEach(function(el) {
+      totalGuessVal+=el.values[el.values.length-1].y;
+    });
 
     $scope.data.forEach(el => {
       if (el.key===order.optionChoice) {
@@ -119,36 +119,33 @@ if (guessObj) {
           x: Date.now(),
           y: (el.values[el.values.length-1].y+Number(order.amtChoice))
         })
-        guessObj[el.key].push(el.values[el.values.length-1]);
+        //guessObj[el.key].push(el.values[el.values.length-1]);
       } else {
         el.values.push({
         x:Date.now(),
         y:(el.values[el.values.length-1].y)
       })
-      guessObj[el.key].push(el.values[el.values.length-1]);
     }
+    guessObj[el.key].push(el.values[el.values.length-1]);
   });
 
     EventFactory.submitGuess($scope.event._id,guessObj);
-    console.log("guessObj for put",guessObj)
-    console.log("scope data",$scope.data)
-    $rootScope.score+=10;
+    $scope.user.score+=10;
     order={};
   }
 
-
-  $rootScope.$watch('score', () => {
-    UserFactory.editUser($scope.user._id, { score: $rootScope.score });
+//TODO: score tracker
+  $scope.$watch('user.score', () => {
+    UserFactory.editUser($scope.user._id, { score: $scope.user.score });
   })
   //TODO: vote points tracker
-  // $rootScope.$watch('guesses', () => {
-  //   var newGuessArr=$scope.user.guesses;
-  //   newGuessArr.forEach(function(el) {
-  //     if (el.event===$scope.event.path) el.number=$rootScope.guesses;
-  //     else newGuessArr.push({ event: $scope.event.path, number: $rootScope.guesses })
-  // });
-  //   UserFactory.editUser($scope.user._id, { guesses: newGuessArr });
-  //   $scope.noMoreGuesses();
-  // })
+
+  function updateGuessCount(num) {
+      var newObj={}
+      var key=$scope.event.path;
+      newObj[key]=num;
+      UserFactory.editUser($scope.user._id, {guesses: newObj});
+      $scope.guesses=num;
+    };
 
 })
