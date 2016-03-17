@@ -36,7 +36,7 @@
               <label for="opt">Selection:</label>
             <select name="opt" ng-init="order.optionChoice=guessOptions[0]" ng-model="order.optionChoice" ng-options="option for option in guessOptions" required>{{option}}</select>
             <label for="amt" >&nbsp;&nbsp;Amount: </label>
-            <input name="amt" style="width:50px;" ng-model="order.amtChoice" min="0" max="guesses" placeholder="100" required />&nbsp;&nbsp;
+            <input name="amt" style="width:50px;" ng-model="order.amtChoice" ng-minlength="0" ng-maxlength="1000" placeholder="100" required />&nbsp;&nbsp;
             <button class="btn-success" id="buy" style="float:center" ng-click="submitGuess(order)" ng-disabled="noMoreGuesses()">Submit!</button>
             <br><span ng-show="tradePanel.amt.$touched && tradePanel.amt.$invalid">The amount is required.</span>
             <br><span ng-show="tradePanel.opt.$touched && tradePanel.opt.$invalid">A choice is required.</span>
