@@ -18,7 +18,7 @@ See a live version of the app [here](http://shielded-stream-27779.herokuapp.com/
 
 ### Screenshot
 
-![Example]()
+![Example](http://www.github.com/mb389/livepoll/screenshot.png)
 _Above: An example of the working app_
 
 ## Installation
@@ -26,7 +26,7 @@ _Above: An example of the working app_
 1. Clone the repository
 
 	```bash
-	git clone https://github.com/mb389/brewery.git
+	git clone https://github.com/mb389/livepoll.git
 	```
 2.	Install dependencies
 
