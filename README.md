@@ -8,6 +8,8 @@ livepoll is an interactive, customizable polling tool built with the MEAN stack 
 
 - [Examples](#examples)
 - [Installation](#installation)
+- [Roadmap](#roadmap)
+- [Contributors](#contributors)
 
 ## Examples
 ### Demo
