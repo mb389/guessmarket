@@ -18,7 +18,7 @@ See a live version of the app [here](http://shielded-stream-27779.herokuapp.com/
 
 ### Screenshot
 
-![Example](http://www.github.com/mb389/livepoll/livepoll-screenshot.png)
+![Example](https://www.github.com/mb389/livepoll/livepoll-screenshot.png)
 _Above: An example of the working app_
 
 ## Installation
