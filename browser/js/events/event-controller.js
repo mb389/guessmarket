@@ -107,11 +107,12 @@ function EventCtrl($scope, $state, theEvent, $rootScope, $interval, AuthService,
     }
 
   vm.submitGuess = function(order) {
-    if (order.optionChoice && order.amtChoice > 0)
+    if (order.optionChoice && order.amtChoice > 0) {
       vm.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
-    vm.guesses-=order.amtChoice;
-    updateGuessCount(vm.guesses);
-    var totalGuessVal=Number(order.amtChoice);
+      vm.guesses-=order.amtChoice;
+      updateGuessCount(vm.guesses);
+      var totalGuessVal=Number(order.amtChoice);
+    }
 
     chartData.forEach(function(el) {
       totalGuessVal+=el.values[el.values.length-1].y;

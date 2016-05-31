@@ -6,6 +6,7 @@ angular
       $stateProvider.state('signup', {
           url:'/signup',
           templateUrl: 'js/signup/signup.html',
-          controller: 'SignupCtrl'
+          controller: 'SignupCtrl',
+          controllerAs: 'vm'
         });
   }

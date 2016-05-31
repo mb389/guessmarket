@@ -1,21 +1,36 @@
 <div id="page-wrapper">
   <br><br>
 <div class="col-lg-6">
-<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && vm.sendLogin(vm.login)">
+<form id="login-form"
+  name="loginForm"
+  ng-submit="loginForm.$valid && vm.sendLogin(vm.login)">
 
   <alert type="danger" ng-show="vm.error">
     {{ vm.error }}
   </alert>
 
   <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="text" ng-model="vm.login.email" class="form-control" id="email" placeholder="Enter email">
+    <h3 class="text-center"> Login </h3>
+    <br>
+    <label for="email">E-mail</label>
+    <input type="text"
+      ng-model="vm.login.email"
+      class="form-control"
+      id="email"
+      placeholder="Enter email">
   </div>
   <div class="form-group">
     <label for="login-password">Password</label>
-    <input type="password" ng-model="vm.login.password" class="form-control" id="login-password" placeholder="Password">
+    <input type="password"
+      ng-model="vm.login.password"
+      class="form-control"
+      id="login-password"
+      placeholder="Password">
   </div>
+  <br>
+
   <button type="submit" class="btn btn-default">Submit</button>
+  <button ui-sref="signup" class="btn btn-default"> Not Registered? Click to Sign Up </button>
 </form>
 </div>
 </div>

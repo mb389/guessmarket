@@ -4,13 +4,12 @@ angular
 
   function SignupCtrl(AuthService, $state) {
     var vm=this;
-    vm.login = {};
+    vm.signup = {};
     vm.error = null;
     vm.regex = '/\S\w*/';
 
     vm.sendSignup = function (signupInfo) {
       vm.error = null;
-
       AuthService
       .signup(signupInfo)
       .then(() => $state.go('home'))
