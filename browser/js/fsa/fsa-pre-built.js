@@ -2,20 +2,24 @@
 
     'use strict';
 
-    // Hope you didn't forget Angular! Duh-doy.
-    if (!window.angular) throw new Error('I can\'t find Angular!');
+    angular.module('fsaPreBuilt', []);
 
-    var app = angular.module('fsaPreBuilt', []);
+    angular
+    .module('fsaPreBuilt')
+    .factory('Socket', Socket)
 
-    app.factory('Socket', function () {
+
+    function Socket() {
         if (!window.io) throw new Error('socket.io not found!');
         return window.io(window.location.origin);
-    });
+    };
 
     // AUTH_EVENTS is used throughout our app to
     // broadcast and listen from and to the $rootScope
     // for important events about authentication flow.
-    app.constant('AUTH_EVENTS', {
+    angular
+    .module('fsaPreBuilt')
+    .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
         loginFailed: 'auth-login-failed',
         logoutSuccess: 'auth-logout-success',
@@ -24,7 +28,11 @@
         notAuthorized: 'auth-not-authorized'
     });
 
-    app.factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
+    angular
+    .module('fsaPreBuilt')
+    .factory('AuthInterceptor', AuthInterceptor)
+
+    function AuthInterceptor($rootScope, $q, AUTH_EVENTS) {
         var statusDict = {
             401: AUTH_EVENTS.notAuthenticated,
             403: AUTH_EVENTS.notAuthorized,
@@ -37,18 +45,26 @@
                 return $q.reject(response)
             }
         };
-    });
+    };
 
-    app.config(function ($httpProvider) {
+    angular
+    .module('fsaPreBuilt')
+    .config(config)
+
+    function config($httpProvider) {
         $httpProvider.interceptors.push([
             '$injector',
             function ($injector) {
                 return $injector.get('AuthInterceptor');
             }
         ]);
-    });
+    };
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    angular
+    .module('fsaPreBuilt')
+    .service('AuthService', AuthService)
+
+    function AuthService($http, Session, $rootScope, AUTH_EVENTS, $q) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
@@ -110,9 +126,13 @@
             });
         };
 
-    });
+    };
 
-    app.service('Session', function ($rootScope, AUTH_EVENTS) {
+    angular
+    .module('fsaPreBuilt')
+    .service('Session', Session)
+
+    function Session($rootScope, AUTH_EVENTS) {
 
         var self = this;
 
@@ -137,6 +157,6 @@
             this.user = null;
         };
 
-    });
+    };
 
 })();

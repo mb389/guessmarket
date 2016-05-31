@@ -1,4 +1,8 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+angular
+  .module('livepoll')
+  .directive('navbar',navbar)
+
+function navbar($rootScope, AuthService, AUTH_EVENTS, $state) {
 
     return {
         restrict: 'E',
@@ -42,4 +46,4 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
     };
 
-});
+};

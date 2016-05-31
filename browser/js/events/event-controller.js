@@ -1,5 +1,9 @@
 
-app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory, chartData) {
+angular
+  .module('livepoll')
+  .controller('EventCtrl',EventCtrl)
+
+function EventCtrl($scope, $state, theEvent, $rootScope, $interval, AuthService, loggedInUser, EventFactory, UserFactory, chartData) {
 
   $scope.event=theEvent;
   $scope.data=chartData;
@@ -10,9 +14,6 @@ app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $inter
   $scope.openGuesses = [];
   var guessObj=$scope.event.choices;
 
-  console.log($scope.event)
-
-  console.log("guesses:",$scope.guesses);
   if (!$scope.guesses) {
     updateGuessCount(1000);
   }
@@ -151,4 +152,4 @@ app.controller('EventCtrl',function($scope, $state, theEvent, $rootScope, $inter
       $scope.guesses=num;
     };
 
-})
+}

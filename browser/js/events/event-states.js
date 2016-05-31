@@ -1,4 +1,8 @@
-app.config(function ($stateProvider) {
+angular
+  .module('livepoll')
+  .config(EventState)
+
+function EventState($stateProvider) {
 
     $stateProvider.state('event', {
         url: '/event/:path',
@@ -44,4 +48,4 @@ app.config(function ($stateProvider) {
       }
 
       })
-});
+};

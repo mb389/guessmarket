@@ -1,4 +1,8 @@
-app.directive('sidebar', function ($rootScope, AuthService, AUTH_EVENTS, $state,EventFactory,UserFactory) {
+angular
+  .module('livepoll')
+  .directive('sidebar', sidebar)
+
+function sidebar($rootScope, AuthService, AUTH_EVENTS, $state,EventFactory,UserFactory) {
 
     return {
         restrict: 'E',
@@ -12,4 +16,4 @@ app.directive('sidebar', function ($rootScope, AuthService, AUTH_EVENTS, $state,
               })
           }
         }
-  });
+  };

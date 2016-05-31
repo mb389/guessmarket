@@ -1,4 +1,9 @@
-app.config(function ($stateProvider) {
+angular
+  .module('livepoll')
+  .config(homeConfig)
+
+
+function homeConfig($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
         templateUrl: 'js/home/home.html',
@@ -64,4 +69,4 @@ app.config(function ($stateProvider) {
      }
    }
     });
-});
+};

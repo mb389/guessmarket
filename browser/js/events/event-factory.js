@@ -1,4 +1,8 @@
-app.factory('EventFactory', function($http) {
+angular
+  .module('livepoll')
+  .factory('EventFactory',EventFactory)
+
+function EventFactory($http) {
 
   var obj = {};
 
@@ -33,4 +37,4 @@ app.factory('EventFactory', function($http) {
   }
 
   return obj;
-});
+};
