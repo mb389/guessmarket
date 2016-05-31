@@ -16,10 +16,6 @@ function EventCtrl($scope, $state, theEvent, $rootScope, $interval, AuthService,
   vm.guessOptions=[];
   var guessObj=vm.event.choices;
 
-  // if (!vm.guesses) {
-  //   updateGuessCount(1000);
-  // }
-
   vm.clearVotes = function() {
     updateGuessCount(1000);
   }
@@ -107,12 +103,11 @@ function EventCtrl($scope, $state, theEvent, $rootScope, $interval, AuthService,
     }
 
   vm.submitGuess = function(order) {
-    if (order.optionChoice && order.amtChoice > 0) {
-      vm.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
-      vm.guesses-=order.amtChoice;
-      updateGuessCount(vm.guesses);
-      var totalGuessVal=Number(order.amtChoice);
-    }
+
+    vm.openGuesses.push({option: order.optionChoice, amt: order.amtChoice});
+    vm.guesses-=order.amtChoice;
+    updateGuessCount(vm.guesses);
+    var totalGuessVal=Number(order.amtChoice);
 
     chartData.forEach(function(el) {
       totalGuessVal+=el.values[el.values.length-1].y;
@@ -134,15 +129,8 @@ function EventCtrl($scope, $state, theEvent, $rootScope, $interval, AuthService,
   });
 
     EventFactory.submitGuess(vm.event._id,guessObj);
-    vm.user.score+=10;
     order={};
   }
-
-//TODO: score tracker
-  $scope.$watch('vm.user.score', () => {
-    UserFactory.editUser(vm.user._id, { score: vm.user.score });
-  })
-  //TODO: vote points tracker
 
   function updateGuessCount(num) {
       var newObj={}
