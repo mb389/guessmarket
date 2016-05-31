@@ -1,6 +1,6 @@
 angular
   .module('livepoll')
-  .factory('UserFactory',UserFactory)
+  .factory('UserFactory', UserFactory)
 
   function UserFactory($http) {
 
