@@ -1,6 +1,6 @@
 angular
-.module('fsaPreBuilt')
-.service('Session', Session)
+  .module('fsaPreBuilt')
+  .service('Session', Session)
 
 function Session($rootScope, AUTH_EVENTS) {
 

@@ -1,6 +1,6 @@
 angular
-.module('fsaPreBuilt')
-.factory('AuthInterceptor', AuthInterceptor)
+  .module('fsaPreBuilt')
+  .factory('AuthInterceptor', AuthInterceptor)
 
 function AuthInterceptor($rootScope, $q, AUTH_EVENTS) {
     var statusDict = {

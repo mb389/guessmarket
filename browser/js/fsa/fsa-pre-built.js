@@ -1,9 +1,3 @@
-(function () {
-
-  'use strict';
-
-  angular.module('fsaPreBuilt', []);
-
   angular
     .module('fsaPreBuilt')
     .config(config)
@@ -16,5 +10,3 @@
           }
       ]);
   };
-
-})();

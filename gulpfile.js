@@ -42,7 +42,7 @@ gulp.task('lintJS', function () {
 });
 
 gulp.task('buildJS', ['lintJS'], function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/js/app.module.js','./browser/js/**/*.module.js', './browser/js/*.js', './browser/js/**/*.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
@@ -108,7 +108,7 @@ gulp.task('buildCSSProduction', function () {
 });
 
 gulp.task('buildJSProduction', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/js/app.module.js','./browser/js/**/*.module.js', './browser/js/*.js', './browser/js/**/*.js'])
         .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(ngAnnotate())

@@ -4,9 +4,9 @@ angular
 
   function loginState($stateProvider) {
       $stateProvider.state('login', {
-          url: '/login',
-          templateUrl: 'js/login/login.html',
-          controller: 'LoginCtrl',
-          controllerAs: 'vm'
+        url: '/login',
+        templateUrl: 'js/login/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'vm'
       });
   };
