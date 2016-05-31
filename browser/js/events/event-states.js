@@ -8,22 +8,12 @@ function EventState($stateProvider) {
         url: '/event/:path',
         templateUrl: '/js/events/event.html',
         controller: 'EventCtrl',
+        controllerAs: 'vm',
         resolve: {
-          theEvent: function(EventFactory,$stateParams) {
-            console.log("here!")
-            return EventFactory.getEventByPath($stateParams.path);
-          },
-          chartData: function(EventFactory,$stateParams) {
-            function getRandomColor() {
-                var letters = '0123456789ABCDEF'.split('');
-                var color = '#';
-                for (var i = 0; i < 6; i++ ) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
-            }
+          theEvent: (EventFactory,$stateParams) => EventFactory.getEventByPath($stateParams.path),
+          chartData: (EventFactory,$stateParams) => {
             return EventFactory.getEventByPath($stateParams.path)
-            .then(function(event) {
+            .then(event => {
               var data=[];
               for (var key in event.choices) {
                 data.push({
@@ -35,17 +25,21 @@ function EventState($stateProvider) {
               return data;
             })
           },
-          loggedInUser: function(AuthService) {
-            return AuthService.getLoggedInUser();
-          },
-          score: function(UserFactory,AuthService) {
-            return AuthService.getLoggedInUser()
-            .then(function(user) {
-              return UserFactory.getUserById(user._id)
-            })
+          loggedInUser: (AuthService) => AuthService.getLoggedInUser(),
+          score: (UserFactory,AuthService) => AuthService.getLoggedInUser()
+            .then(user => UserFactory.getUserById(user._id))
             .then(user => user.score)
-          }
       }
+
 
       })
 };
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}

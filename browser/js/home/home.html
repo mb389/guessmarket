@@ -2,18 +2,18 @@
 <section id="home">
   <div id="page-wrapper">
     <div class="row">
-      <div class="col-lg-12" ng-show="user">
+      <div class="col-lg-12" ng-show="vm.user">
         <h1 class="page-header">Dashboard</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8" ng-show="user">
+      <div class="col-md-8" ng-show="vm.user">
         <div class="panel panel-default">
           <div class="panel-heading">
             <i class="fa fa-bar-chart-o fa-fw"></i> Poll Creation Console
             <span class="pull-right" style="vertical-align:middle">
-            <button ng-click="reset()" value="Reset">Reset</button>
-            <button type="submit" ng-click="save(newEvent,choices)" value="Save">Save</button>
+            <button ng-click="vm.reset()" value="Reset">Reset</button>
+            <button type="submit" ng-click="vm.save(vm.newEvent,vm.choices)" value="Save">Save</button>
           </span
             </div>
 
@@ -22,14 +22,14 @@
           <div class="panel-body" >
               <form novalidate class="form-group" name="createMarket">
                   <label>Event Name</label>
-                   <input type="text" ng-model="newEvent.name" /><br />
+                   <input type="text" ng-model="vm.newEvent.name" /><br />
                    <br>
                    <label>Event Description</label>
-                    <input type="text" ng-model="newEvent.desc" size="400" /><br />
+                    <input type="text" ng-model="vm.newEvent.desc" size="400" /><br />
                     <br>
-                   <div ng-repeat="choice in choices">
-                     <label for="choice" ng-show="showChoiceLabel(choice)">Choices</label>
-                     <button ng-show="$last" ng-click="addNewChoice()">Add another choice</button>
+                   <div ng-repeat="choice in vm.choices">
+                     <label for="choice" ng-show="vm.showChoiceLabel(choice)">Choices</label>
+                     <button ng-show="$last" ng-click="vm.addNewChoice()">Add another choice</button>
                      <input type="text" ng-model="choice.name" name="" placeholder="Enter an option">
                   </div>
                   </form>
@@ -38,12 +38,10 @@
             </div>
 
           </div>
-          <div class="row" ng-hide="user">
+          <div class="row" ng-hide="vm.user">
           <div class="col-md-12" ><br>Please Sign Up and/or Login<br><br></div>
           <img src="https://c1.staticflickr.com/5/4011/4361587415_d1e8375bf5.jpg" ></img>
         </div>
-          <!-- /.panel-body -->
         </div>
     </div>
 </section>
-  <!-- /#page-wrapper -->

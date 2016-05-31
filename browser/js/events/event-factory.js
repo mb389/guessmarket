@@ -16,11 +16,6 @@ function EventFactory($http) {
       .then(res => res.data);
   }
 
-  // obj.findOrCreateEvent = function(path) {
-  //   return $http.get('/api/events/search/' + path)
-  //     .then(res => res.data)
-  // }
-
   obj.createEvent = function(body) {
     return $http.post('/api/events/', body)
       .then(res => res.data);

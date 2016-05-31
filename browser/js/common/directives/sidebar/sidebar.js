@@ -11,9 +11,7 @@ function sidebar($rootScope, AuthService, AUTH_EVENTS, $state,EventFactory,UserF
               EventFactory.getEvents()
               .then(events => scope.events=events)
               AuthService.getLoggedInUser()
-              .then(user => {
-                scope.user=user;
-              })
+              .then(user => scope.user=user)
           }
         }
   };

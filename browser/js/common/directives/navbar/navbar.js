@@ -21,18 +21,18 @@ function navbar($rootScope, AuthService, AUTH_EVENTS, $state) {
             };
 
             scope.logout = function () {
-                AuthService.logout().then(function () {
-                   $state.go('home');
-                });
+                AuthService
+                .logout()
+                .then(() => $state.go('home'));
             };
 
-            var setUser = function () {
-                AuthService.getLoggedInUser().then(function (user) {
-                    scope.user = user;
-                });
+            function setUser() {
+                AuthService
+                .getLoggedInUser()
+                .then(user => scope.user = user);
             };
 
-            var removeUser = function () {
+            function removeUser() {
                 scope.user = null;
             };
 

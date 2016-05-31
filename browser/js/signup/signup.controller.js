@@ -2,23 +2,19 @@ angular
   .module('livepoll')
   .controller('SignupCtrl',SignupCtrl)
 
-  function SignupCtrl($scope, AuthService, $state) {
+  function SignupCtrl(AuthService, $state) {
+    var vm=this;
+    vm.login = {};
+    vm.error = null;
+    vm.regex = '/\S\w*/';
 
-      $scope.login = {};
-      $scope.error = null;
-      $scope.regex = '/\S\w*/';
+    vm.sendSignup = function (signupInfo) {
+      vm.error = null;
 
-      $scope.sendSignup = function (signupInfo) {
-        console.log('runs signup');
-
-          $scope.error = null;
-
-          AuthService.signup(signupInfo).then(function () {
-              $state.go('home');
-          }).catch(function () {
-              $scope.error = 'Invalid signup credentials.';
-          });
-
-      };
+      AuthService
+      .signup(signupInfo)
+      .then(() => $state.go('home'))
+      .catch(() => $scope.error = 'Invalid signup credentials.');
+    };
 
   };
