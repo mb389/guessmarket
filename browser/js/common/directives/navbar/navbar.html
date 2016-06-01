@@ -4,7 +4,7 @@
           <a class="navbar-brand" ui-sref="home"><strong>livepoll</strong></a>
         </div>
 
-        <div class="hidden-xs hidden-sm" style="position: absolute;left: 50%;margin-top:15px;margin-left:-56px;width:250px" id="centered-div" ng-show="user" class="welcome">
+        <div style="position: absolute;left: 50%;margin-top:15px;margin-left:-56px;width:250px" id="centered-div" ng-show="user.email" class="welcome">
             <span>Welcome, {{ user.email }}!</span>
             <a ng-click="logout()">Logout</a>
         </div>

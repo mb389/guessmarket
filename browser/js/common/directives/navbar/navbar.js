@@ -14,7 +14,7 @@ function navbar($rootScope, AuthService, AUTH_EVENTS, $state) {
                 { label: 'Home', state: 'home' }
             ];
 
-            scope.user = null;
+            // scope.user = null;
 
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
@@ -23,7 +23,7 @@ function navbar($rootScope, AuthService, AUTH_EVENTS, $state) {
             scope.logout = function () {
                 AuthService
                 .logout()
-                .then(() => $state.go('home'));
+                .then(() => $state.go('home', {}, {reload: true}));
             };
 
             function setUser() {
