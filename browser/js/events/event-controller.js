@@ -21,7 +21,7 @@ function EventCtrl($scope, $state, theEvent, $rootScope, $interval, AuthService,
   }
 
   vm.noMoreGuesses = function() {
-    if (vm.guesses <= 0)
+    if (vm.guesses-vm.order.amtChoice <= 0)
     return true;
   }
 

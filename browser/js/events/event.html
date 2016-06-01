@@ -48,7 +48,7 @@
               Submit!
             </button>
             <span ng-show="tradePanel.opt.$touched && tradePanel.opt.$invalid">A choice is required.</span>
-            <span ng-show="!tradePanel.amt.$valid">Invalid amount</span>
+            <br><span ng-show="!tradePanel.amt.$valid">Invalid amount</span>
           </form>
           <button ng-show="vm.userCheck()" ng-click="vm.clearVotes()">Reset Votes</button>
           <h5>Vote Points Remaining: {{vm.guesses}}</h5>
