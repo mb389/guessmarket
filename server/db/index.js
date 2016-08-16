@@ -5,6 +5,8 @@ var chalk = require('chalk');
 
 var DATABASE_URI = require(path.join(__dirname, '../env')).DATABASE_URI;
 
+console.log(DATABASE_URI)
+
 var mongoose = require('mongoose');
 var db = mongoose.connect(DATABASE_URI).connection;
 
